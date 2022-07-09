@@ -4,6 +4,7 @@ import EventSummary from '../../components/event-detail/event-summary';
 import { getEventById } from '../../dummy-data';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
+import ErrorAlert from '../../components/ui/error-alert';
 
 export default function EvenDetailPage() {
   // id is part of the URL, so we use useRouter hook
@@ -19,7 +20,11 @@ export default function EvenDetailPage() {
 
   // if event is falsey, will push out a error message to user
   if (!event) {
-    return <p>No event found!</p>;
+    return (
+      <ErrorAlert>
+        <p>No event found!</p>
+      </ErrorAlert>
+    );
   }
 
   return (
