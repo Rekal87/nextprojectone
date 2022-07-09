@@ -6,7 +6,6 @@ export default function AllEventPage() {
 
   return (
     <div>
-      <h1>All Events</h1>
       <EventList items={allEvents} />
     </div>
   );
