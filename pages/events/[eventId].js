@@ -1,22 +1,12 @@
-import { useRouter } from 'next/router';
 import { Fragment } from 'react';
 import EventSummary from '../../components/event-detail/event-summary';
-import { getEventById } from '../../dummy-data';
+import { getEventById, getAllEvents } from '../../helpers/api-util';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
 import ErrorAlert from '../../components/ui/error-alert';
 
-export default function EvenDetailPage() {
-  // id is part of the URL, so we use useRouter hook
-  const router = useRouter();
-
-  // query property is a object with a dynamic segment a.k.a ..event/[#] where # is the ID
-  // by using the objects key we can access eventId
-  const eventId = router.query.eventId;
-  console.log(router.query);
-
-  // then we call on the getEventById method which expects a argument "eventID"
-  const event = getEventById(eventId);
+export default function EvenDetailPage(props) {
+  const event = props.selectedEvent;
 
   // if event is falsey, will push out a error message to user
   if (!event) {
@@ -41,4 +31,29 @@ export default function EvenDetailPage() {
       </EventContent>
     </Fragment>
   );
+}
+
+export async function getStaticProps(context) {
+  const eventId = context.params.eventId;
+
+  const event = await getEventById(eventId);
+  return {
+    props: {
+      selectedEvent: event,
+    },
+  };
+}
+
+// tells NextJS which ids should be prerendered in a dynamic page
+export async function getStaticPaths() {
+  const events = getAllEvents();
+
+  const paths = (await events).map((event) => ({
+    params: { eventId: event.id },
+  }));
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
 }
