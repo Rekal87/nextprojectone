@@ -3,7 +3,6 @@ import EventSummary from '../../components/event-detail/event-summary';
 import { getEventById, getFeaturedEvents } from '../../helpers/api-util';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
-import ErrorAlert from '../../components/ui/error-alert';
 
 export default function EvenDetailPage(props) {
   const event = props.selectedEvent;
@@ -55,6 +54,6 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: true,
+    fallback: 'blocking',
   };
 }

@@ -12,8 +12,10 @@ export default function FilteredEventsPage() {
 
   const filterData = router.query.slug;
 
+  const fetcher = (url) => fetch(url).then((r) => r.json());
   const { data, error } = useSWR(
-    'https://nextjs-course-9b48b-default-rtdb.europe-west1.firebasedatabase.app/events.json'
+    'https://nextjs-course-9b48b-default-rtdb.europe-west1.firebasedatabase.app/events.json',
+    fetcher
   );
 
   useEffect(() => {
