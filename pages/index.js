@@ -10,3 +10,7 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  return fetch("https://nextjs-course-9b48b-default-rtdb.europe-west1.firebasedatabase.app/").then(response => response.json().then(data) => {  })
+}
