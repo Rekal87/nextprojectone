@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import EventSummary from '../../components/event-detail/event-summary';
-import { getEventById, getAllEvents } from '../../helpers/api-util';
+import { getEventById, getFeaturedEvents } from '../../helpers/api-util';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
 import ErrorAlert from '../../components/ui/error-alert';
@@ -11,9 +11,9 @@ export default function EvenDetailPage(props) {
   // if event is falsey, will push out a error message to user
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No event found!</p>
-      </ErrorAlert>
+      <div className='center'>
+        <p>Loading!</p>
+      </div>
     );
   }
 
@@ -41,12 +41,13 @@ export async function getStaticProps(context) {
     props: {
       selectedEvent: event,
     },
+    revalidate: 30,
   };
 }
 
 // tells NextJS which ids should be prerendered in a dynamic page
 export async function getStaticPaths() {
-  const events = getAllEvents();
+  const events = getFeaturedEvents();
 
   const paths = (await events).map((event) => ({
     params: { eventId: event.id },
@@ -54,6 +55,6 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 }
