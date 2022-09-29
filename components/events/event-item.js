@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import styles from './event-item.module.css';
-import Button from '../ui/button';
-import DateIcon from '../icons/date-icon';
 import AddressIcon from '../icons/address-icon';
 import ArrowRightIcon from '../icons/arrow-right-icon';
+import DateIcon from '../icons/date-icon';
+import Button from '../ui/button';
+import styles from './event-item.module.css';
 
 export default function EventItem(props) {
   const { title, image, date, location, id } = props;
@@ -16,7 +16,6 @@ export default function EventItem(props) {
   });
 
   const formattedAddress = location.replace(', ', '\n');
-
   const exploreLink = `/events/${id}`;
 
   return (
