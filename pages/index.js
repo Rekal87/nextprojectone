@@ -13,6 +13,7 @@ export default function Home(props) {
           content='Find a lot of great events that allow you to evolve...'
         />
       </Head>
+
       <NewsletterRegistration />
 
       <EventList items={props.events} />
