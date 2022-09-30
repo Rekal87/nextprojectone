@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styles from './newsletter-registration.module.css';
 
 function NewsletterRegistration() {
-  const emailInputRef = useRef();
+  // const emailInputRef = useRef();
+  const [input, setInput] = useState('');
 
   function registrationHandler() {
     const enteredEmail = emailInputRef.current.value;
@@ -27,7 +28,8 @@ function NewsletterRegistration() {
             name='email'
             required
             placeholder='Your email'
-            ref={emailInputRef}
+            // ref={emailInputRef}
+            onChange={(e) => setInput(e.currentTarget.value)}
           />
           <button type='button' onClick={registrationHandler}>
             Register
